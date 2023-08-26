@@ -16,4 +16,3 @@ if pair_numbers < unpaired_numbers:
     print("Yes")
 else:
     print("No")
-60
