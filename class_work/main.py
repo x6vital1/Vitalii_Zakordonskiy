@@ -1,3 +1,4 @@
-my_str = "{test:>2} тест тест"
-for i in range(22):
-    print(my_str.format(test = i + 1))
+import datetime
+
+time = datetime.datetime.now()
+print(f"{time: %H:%M:%S}")
