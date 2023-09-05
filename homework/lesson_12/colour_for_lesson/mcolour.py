@@ -1,4 +1,4 @@
-# Определение словаря 'colour', который сопоставляет названия цветов.
+# Определение словаря 'colour', который сопоставляет названия цветов с кодами ANSI escape.
 colour = {
     'red': '31m',
     'black': '30m',
@@ -12,23 +12,37 @@ colour = {
 
 
 def color_text(text, colour_name):
-    """Определение функции 'color_text', которая принимает аргументы 'text' и 'colour_name'
-    и возвращает 'text' с указанным цветом, используя коды ANSI escape."""
+    """
+    Окрашивает переданный текст в указанный цвет.
+
+    :param text: Строка, которую нужно окрасить.
+    :param colour_name: Название цвета (ключ из словаря 'colour').
+    :return: Окрашенный текст с ANSI escape кодами.
+    """
     coloured_txt = '\033[' + colour_name + text + '\033[0m'
     return coloured_txt
 
 
 def styled(text, code="3m"):
-    """Определение функции 'styled', которая принимает аргументы 'text' и 'code' (по умолчанию "3m")
-    и возвращает 'text' с применением указанного кода."""
+    """
+    Возвращает текст, стилизованный с помощью указанного ANSI escape кода.
+
+    :param text: Строка, которую нужно стилизовать.
+    :param code: ANSI escape код стиля (по умолчанию "3m").
+    :return: Стилизованный текст с ANSI escape кодами.
+    """
     clean_style_code = '\033[0m'
     styled_txt = f'\033[{code}{text}{clean_style_code}'
     return styled_txt
 
 
 def error_message(message):
-    """Определение функции 'error_message', которая создает сообщение об ошибке с префиксом "ERROR"
-    и окрашивает его в красный цвет, а также окрашивает текст ошибки в желтый цвет."""
+    """
+    Создает сообщение об ошибке с определенными стилями и цветами.
+
+    :param message: Сообщение об ошибке.
+    :return: Сообщение об ошибке с ANSI escape кодами для стилизации.
+    """
     status = "ERROR"
     error = color_text(f"{status:<8} ", colour['red'])
     _message = color_text(message, colour['yellow'])
@@ -37,8 +51,12 @@ def error_message(message):
 
 
 def warning_message(message):
-    """Определение функции 'warning_message', которая создает предупреждающее сообщение с префиксом "WARNING"
-    и окрашивает его в желтый цвет, а также окрашивает текст предупреждения в бирюзовый цвет."""
+    """
+    Создает предупреждающее сообщение с определенными стилями и цветами.
+
+    :param message: Предупреждающее сообщение.
+    :return: Предупреждающее сообщение с ANSI escape кодами для стилизации.
+    """
     status = "WARNING"
     warn = color_text(f"{status:<8} ", colour['yellow'])
     _message = color_text(message, colour['biruza'])
@@ -47,25 +65,19 @@ def warning_message(message):
 
 
 def info_message(message):
-    """Определение функции 'info_message', которая создает информационное сообщение с префиксом "INFO"
-    и окрашивает его в фиолетовый цвет."""
+    """
+    Создает информационное сообщение с определенными стилями и цветами.
+
+    :param message: Информационное сообщение.
+    :return: Информационное сообщение с ANSI escape кодами для стилизации.
+    """
     status = "INFO"
     info = color_text(f"{status:<8} ", colour['purpure'])
     info_message = info + message
     return info_message
 
 
-"""
-Example:
-s = "\033[3m"
-c = "\033[33m"
-f  = "\033[41m";
-clean = "\033[0m"
-pattern = f"{s}{c}{f}{txt}{clean}"
-"""
-
 if __name__ == "__main__":
-    '''Пример использования функций для вывода сообщений разных типов с цветами.'''
-    print(warning_message("ups i did sit again"))
-    print(error_message("wrong way"))
-    print(info_message("thanks for info"))
+    print(warning_message("упс, я снова ошибся"))
+    print(error_message("неправильный путь"))
+    print(info_message("спасибо за информацию"))
