@@ -85,22 +85,16 @@ def info_message(message):
     return info_message
 
 
-def background_color(text, bg_colour_name=None):
-    """
-    Изменяет фон текста с помощью указанного кода цвета фона ANSI escape.
-
-    :param bg_colour_name:
-    :param text: Строка, текст которой нужно изменить.
-    :return: Текст с измененным фоном с ANSI escape кодами.
-    """
-    bg_colour_code = colour.get(bg_colour_name, '') if bg_colour_name else ''
-    reset_background_color = '\033[0m'
-    colored_background = f'\033[{bg_colour_code}{text}{reset_background_color}'
-    return colored_background
+def universal_text_style(text_style='1', text_color='33m', bg_color='47m', text=None):
+    bg_code = f'\033[{colour.get(bg_color)}'
+    color_code = f'\033[{colour.get(text_color)}'
+    style = f'\033[{text_style}m'
+    styled_text = f'{style}{color_code}{bg_code}{text}\033[0m'
+    return styled_text
 
 
 if __name__ == "__main__":
     print(warning_message("упс, я снова ошибся"))
     print(error_message("неправильный путь"))
     print(info_message("спасибо за информацию"))
-    print(background_color("Текст с фоном", ""))  # Пример использования с кодом цвета фона 47 (серый)
+    print(universal_text_style("Мой тестовый шрифт"))

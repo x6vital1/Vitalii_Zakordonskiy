@@ -6,7 +6,7 @@ print(
 )
 
 for num, colour_key in enumerate(mc.colour):
-    init_text = mc.color_text("Now it is a text", mc.colour['red'])
+    init_text = mc.universal_text_style("red", "dsdsds")
 
     key_coloured = mc.color_text(colour_key, mc.colour.get(colour_key))
 
