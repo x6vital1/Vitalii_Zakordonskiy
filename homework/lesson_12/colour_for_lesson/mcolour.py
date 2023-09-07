@@ -7,7 +7,15 @@ colour = {
     'blue': '34m',
     'purpure': '35m',
     'biruza': '36m',
-    'white': '37m'
+    'white': '37m',
+    'bg_red': '41m',  # Добавляем цвет фона к словарю
+    'bg_black': '40m',  # Добавляем цвет фона к словарю
+    'bg_green': '42m',  # Добавляем цвет фона к словарю
+    'bg_yellow': '43m',  # Добавляем цвет фона к словарю
+    'bg_blue': '44m',  # Добавляем цвет фона к словарю
+    'bg_purpure': '45m',  # Добавляем цвет фона к словарю
+    'bg_biruza': '46m',  # Добавляем цвет фона к словарю
+    'bg_white': '47m',  # Добавляем цвет фона к словарю
 }
 
 
@@ -77,7 +85,22 @@ def info_message(message):
     return info_message
 
 
+def background_color(text, bg_colour_name=None):
+    """
+    Изменяет фон текста с помощью указанного кода цвета фона ANSI escape.
+
+    :param bg_colour_name:
+    :param text: Строка, текст которой нужно изменить.
+    :return: Текст с измененным фоном с ANSI escape кодами.
+    """
+    bg_colour_code = colour.get(bg_colour_name, '') if bg_colour_name else ''
+    reset_background_color = '\033[0m'
+    colored_background = f'\033[{bg_colour_code}{text}{reset_background_color}'
+    return colored_background
+
+
 if __name__ == "__main__":
     print(warning_message("упс, я снова ошибся"))
     print(error_message("неправильный путь"))
     print(info_message("спасибо за информацию"))
+    print(background_color("Текст с фоном", ""))  # Пример использования с кодом цвета фона 47 (серый)
