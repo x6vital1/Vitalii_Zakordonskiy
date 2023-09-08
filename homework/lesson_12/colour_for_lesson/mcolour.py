@@ -8,7 +8,7 @@ colour = {
     'purpure': '35m',
     'biruza': '36m',
     'white': '37m',
-    'bg_red': '41m',  # Добавляем цвет фона к словарю
+    'bg_red': '101m',  # Добавляем цвет фона к словарю
     'bg_black': '40m',  # Добавляем цвет фона к словарю
     'bg_green': '42m',  # Добавляем цвет фона к словарю
     'bg_yellow': '43m',  # Добавляем цвет фона к словарю
@@ -81,15 +81,22 @@ def info_message(message):
     """
     status = "INFO"
     info = color_text(f"{status:<8} ", colour['purpure'])
-    info_message = info + message
-    return info_message
+    info_msg = info + message
+    return info_msg
 
 
-def universal_text_style(text_style='1', text_color='33m', bg_color='47m', text=None):
-    bg_code = f'\033[{colour.get(bg_color)}'
-    color_code = f'\033[{colour.get(text_color)}'
-    style = f'\033[{text_style}m'
-    styled_text = f'{style}{color_code}{bg_code}{text}\033[0m'
+def universal_text_stile(text, text_color=None, bg_color=None, text_style=None):
+    style_code = ""
+
+    if text_color:
+        style_code += f'\033[{colour.get(text_color, "")}'
+    if bg_color:
+        style_code += f'\033[{colour.get(bg_color, "")}'
+    if text_style:
+        style_code += f'\033[{text_style}m'
+
+    reset_code = '\033[0m'
+    styled_text = f'{style_code}{text}{reset_code}'
     return styled_text
 
 
@@ -97,4 +104,4 @@ if __name__ == "__main__":
     print(warning_message("упс, я снова ошибся"))
     print(error_message("неправильный путь"))
     print(info_message("спасибо за информацию"))
-    print(universal_text_style("Мой тестовый шрифт"))
+    print(universal_text_stile("Test test test", bg_color="bg_black"))
