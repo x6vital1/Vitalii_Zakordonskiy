@@ -15,9 +15,11 @@ def is_valid_password(password):
             return False
     return has_digit and has_letter and has_special_char
 
+
 def password_requirements(func):
     def wrapper():
-        print("Пароль должен содержать хотя бы 1 цифру, 1 букву, 1 специальный символ и быть не менее 8 символов в длину.")
+        print(
+            "Пароль должен содержать хотя бы 1 цифру, 1 букву, 1 спец символ и быть не менее 8 символов в длину.")
         result = func()
         while not is_valid_password(result):
             if result is None:
@@ -34,11 +36,13 @@ def password_requirements(func):
                     missing_requirements.append("отсутствует специальный символ")
                 if any(char in ' \t' for char in result):
                     missing_requirements.append("присутствует пробел или табуляция")
-                print(f"Пароль не соответствует требованиям: {', '.join(missing_requirements)}")
+                print(f"Пароль не соответствует требованиям: {', '.join(missing_requirements)}", "!")
             result = func()
         print("Пароль соответствует требованиям.")
         return result
+
     return wrapper
+
 
 @password_requirements
 def get_password():
@@ -46,6 +50,7 @@ def get_password():
     if not input_password.strip() or any(char in input_password for char in ' \t'):
         return None
     return input_password
+
 
 password_result = get_password()
 print("Введенный пароль:", password_result)
