@@ -25,7 +25,8 @@ def password_requirements(func):
         result = func()
         while not is_valid_password(result):
             if result is None:
-                print("Пробельные символы и символы табуляции не допускаются.")
+                print(
+                    "Пустую строку вводить нельзя. Пробельные символы и символы табуляции не допускаются.")
             else:
                 missing_requirements = []
                 if len(result) < 8:
@@ -42,8 +43,8 @@ def password_requirements(func):
                 if any(
                         char in ' \t' for char in result):
                     missing_requirements.append("присутствует пробел или табуляция")
-                print(f"Пароль не соответствует требованиям:"
-                      f" {', '.join(missing_requirements)}")
+                print(
+                    f"Пароль не соответствует требованиям: {', '.join(missing_requirements)}", "!")
             result = func()
         print("Пароль соответствует требованиям.")
         return result
@@ -54,7 +55,7 @@ def password_requirements(func):
 @password_requirements
 def get_password():
     input_password = input("Введите пароль: ")
-    if not input_password.strip() or any(char in input_password for char in ' \t'):
+    if not input_password.strip():
         return None
     return input_password
 
