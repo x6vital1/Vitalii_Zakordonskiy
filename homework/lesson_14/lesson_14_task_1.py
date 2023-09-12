@@ -32,16 +32,20 @@ def password_requirements(func):
                 if len(result) < 8:
                     missing_requirements.append("пароль короче 8 символов")
                 if not any(
-                        char.isdigit() for char in result):
+                    char.isdigit() for char in result
+                ):
                     missing_requirements.append("отсутствует цифра")
                 if not any(
-                        char.isalpha() for char in result):
+                    char.isalpha() for char in result
+                ):
                     missing_requirements.append("отсутствует буква")
                 if not any(
-                        char in "!@#$%^&*()_+{}[]:;<>,.?~\\" for char in result):
+                    char in "!@#$%^&*()_+{}[]:;<>,.?~\\" for char in result
+                ):
                     missing_requirements.append("отсутствует специальный символ")
                 if any(
-                        char in ' \t' for char in result):
+                    char in ' \t' for char in result
+                ):
                     missing_requirements.append("присутствует пробел или табуляция")
                 print(
                     f"Пароль не соответствует требованиям: {', '.join(missing_requirements)}", "!")
