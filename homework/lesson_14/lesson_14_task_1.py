@@ -1,4 +1,6 @@
 def is_valid_password(password):
+    if password is None:
+        return False
     if len(password) < 8:
         return False
     has_digit = False
@@ -28,15 +30,20 @@ def password_requirements(func):
                 missing_requirements = []
                 if len(result) < 8:
                     missing_requirements.append("пароль короче 8 символов")
-                if not any(char.isdigit() for char in result):
+                if not any(
+                        char.isdigit() for char in result):
                     missing_requirements.append("отсутствует цифра")
-                if not any(char.isalpha() for char in result):
+                if not any(
+                        char.isalpha() for char in result):
                     missing_requirements.append("отсутствует буква")
-                if not any(char in "!@#$%^&*()_+{}[]:;<>,.?~\\" for char in result):
+                if not any(
+                        char in "!@#$%^&*()_+{}[]:;<>,.?~\\" for char in result):
                     missing_requirements.append("отсутствует специальный символ")
-                if any(char in ' \t' for char in result):
+                if any(
+                        char in ' \t' for char in result):
                     missing_requirements.append("присутствует пробел или табуляция")
-                print(f"Пароль не соответствует требованиям: {', '.join(missing_requirements)}", "!")
+                print(f"Пароль не соответствует требованиям:"
+                      f" {', '.join(missing_requirements)}")
             result = func()
         print("Пароль соответствует требованиям.")
         return result
