@@ -1,13 +1,27 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = 'https://index.minfin.com.ua/reference/people/town/'
-response = requests.get(url)
+# URL для парсинга данных о городах Украины и валютах стран
+city_url = 'https://index.minfin.com.ua/reference/people/town/'
+currency_url = 'https://fxtop.com/ru/countries-currencies.php'
+
+# Выполняем запросы к ресурсам
+response_city = requests.get(city_url)
+response_currency = requests.get(currency_url)
 
 
-def city_parser():
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
+def city_parser(city_name):
+    """
+    Функция для парсинга информации о населении городов Украины.
+
+    :param city_name: Название города, для которого нужно получить информацию о населении.
+    :type city_name: str
+
+    :return: Информация о городе, населении и стране (Украина).
+    :rtype: str or None
+    """
+    if response_city.status_code == 200:
+        soup = BeautifulSoup(response_city.text, 'html.parser')
 
         table = soup.find('table')
 
@@ -20,11 +34,55 @@ def city_parser():
                 population = columns[1].text.strip()
                 city_population_dict[city.lower()] = population
 
-        city = input("Введите город: ").lower()
-        parsed_data = city_population_dict.get(city)
+        parsed_data = city_population_dict.get(city_name.lower())
 
-        return f"Город - '{city.capitalize()}', население - '{parsed_data} чел'"
+        if parsed_data:
+            return f"Город - {city_name.capitalize()}\nСтрана - Украина \nНаселение - {parsed_data} чел "
+        else:
+            return None
+
+
+def currency(country_name):
+    """
+    Функция для парсинга информации о валютах стран.
+
+    :param country_name: Название страны, для которой нужно получить информацию о валюте.
+    :type country_name: str
+
+    :return: Информация о стране и ее валюте.
+    :rtype: str or None
+    """
+    if response_currency.status_code == 200:
+        soup = BeautifulSoup(response_currency.text, 'html.parser')
+
+        table = soup.find('table')
+
+        country_currency_dict = {}
+
+        for row in table.find_all('tr')[1:]:
+            columns = row.find_all('td')
+            if len(columns) >= 4:
+                country = columns[0].text.strip()
+                currency = columns[2].text.strip()
+                country_currency_dict[country.lower()] = currency
+
+        parsed_currency = country_currency_dict.get(country_name.lower())
+
+        if parsed_currency:
+            return f"Страна - {country_name.capitalize()} \nВалюта - {parsed_currency}"
+        else:
+            return None
 
 
 if __name__ == "__main__":
-    print(city_parser())
+    input_value = input("Введите город Украины или страну: ")
+
+    city_info = city_parser(input_value)
+    if city_info:
+        print(city_info)
+    else:
+        country_info = currency(input_value)
+        if country_info:
+            print(country_info)
+        else:
+            print(f"Данные для {input_value} не найдены.")
