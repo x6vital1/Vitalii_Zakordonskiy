@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+import sys
+
 
 # URL для парсинга данных о городах Украины и валютах стран
 city_url = 'https://index.minfin.com.ua/reference/people/town/'
@@ -75,14 +77,18 @@ def currency(country_name):
 
 
 if __name__ == "__main__":
-    input_value = input("Введите город Украины или страну: ")
+    args = sys.argv[1:]
 
-    city_info = city_parser(input_value)
-    if city_info:
-        print(city_info)
-    else:
-        country_info = currency(input_value)
-        if country_info:
-            print(country_info)
+    if len(args) == 1:
+        input_value = args[0]
+        city_info = city_parser(input_value)
+        if city_info:
+            print(city_info)
         else:
-            print(f"Данные для {input_value} не найдены.")
+            country_info = currency(input_value)
+            if country_info:
+                print(country_info)
+            else:
+                print(f"Данные для {input_value} не найдены.")
+    else:
+        print("Использование: python main.py <город или страна>")
