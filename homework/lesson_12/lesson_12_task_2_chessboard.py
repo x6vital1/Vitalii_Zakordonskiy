@@ -35,9 +35,9 @@ def print_chess_board(board):
     :param board: передача матрици шахматной доски.
     :return: Вывод шахматной доски 8*8
     """
-    print(mc.universal_text_stile("   a  b  c  d  e  f  g  h", "red"))
+    print(mc.universal_text_style("   a  b  c  d  e  f  g  h", "red"))
     for i in range(8):
-        print(mc.universal_text_stile(8 - i, "red"), end=" ")
+        print(mc.universal_text_style(8 - i, "red"), end=" ")
         for j in range(8):
             if (i + j) % 2 == 0:
                 print("\033[47m", end="")
@@ -47,8 +47,8 @@ def print_chess_board(board):
             print(" " + board[i][j] + " ", end="")
             print("\033[0m", end="")
 
-        print(mc.universal_text_stile(" " + str(8 - i), "red"))
-    print(mc.universal_text_stile("   a  b  c  d  e  f  g  h", "red"))
+        print(mc.universal_text_style(" " + str(8 - i), "red"))
+    print(mc.universal_text_style("   a  b  c  d  e  f  g  h", "red"))
 
 
 if __name__ == "__main__":
