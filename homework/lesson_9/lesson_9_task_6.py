@@ -37,4 +37,4 @@ least_common_word = min(word_count, key=word_count.get)
 
 print(word_count)
 print("Слово которое встречается больше всего раз:", most_common_word, "({} раз)".format(word_count[most_common_word]))
-print("Слово, которое встречается меньше всего раз:", least_common_word, "({} раз)".format(word_count[least_common_word]))
+print("Слово,которое встречается меньше всего раз:", least_common_word, "({} раз)".format(word_count[least_common_word]))

@@ -12,6 +12,6 @@ def dict_handler(link_on_dict, key, default_value):
 
 # Приклад використання функції
 my_dict = {'a': 1, 'b': 2}
-result = dict_handler(my_dict, [2,2,2,2], 4)
+result = dict_handler(my_dict, "c", 4)
 print(f"Новый словарь: {my_dict}")
 print(f"Резултатат: {result}")
